@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 
 public class pcapSearch{
     public String[] pcapArray = s.split(',"');
@@ -15,7 +16,8 @@ public class pcapSearch{
 
     }
     public class void ipAddressSYN(String pcap){
-        Array[] bucket = null;
+        Array[] bucketSyn = null;
+        Array[] bucketAck = null;
         for(String testStr : pcapArray){
             if (testStr.indexOf("SYN+ACK") != -1){
                if (matcher.find()) {
@@ -27,13 +29,28 @@ public class pcapSearch{
                 }
             }
         }
-        for(String ip : ipsyn)
-            if(Arrays.asList(bucket).contains(ip)){
-                bucket[ip]++;
-            }
-            else
+        for(String ip : IPacksyn) {
+            if (Arrays.asList(bucket).contains(ip)) {
+                bucketAck[ip]++;
+            } else {
                 bucket.add(ip);
-                bucket[ip]++;
+                bucketAck[ip]++;
+            }
+        }
+        for(String ip : ipsyn) {
+            if (Arrays.asList(bucket).contains(ip)) {
+                bucketSyn[ip]++;
+            } else {
+                bucketSyn.add(ip);
+                bucketSyn[ip]++;
+            }
+        }
+        for(String ip : IPacksyn){
+            if(double(bucketAck[ip]/bucketSyn[ip]) > '.3'){
+                System.out.print(ip);
+            }
+        }
+
     }
     public class void passFinder(String pcap){
             for(String testStr : pcapArray){
