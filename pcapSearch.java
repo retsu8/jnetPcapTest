@@ -1,6 +1,11 @@
 public class pcapSearch{
     public String[] pcapArray = s.split(',"');
     public String[] passwords = null;
+    public String[] IP = null;
+    public String IPADDRESS_PATTERN ="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+    public Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
+    public Matcher matcher = pattern.matcher(ipString);
+
     public class void main(String pcap){
         ipAddressSYN(pcap);
         passFinder(pcap);
@@ -8,7 +13,12 @@ public class pcapSearch{
     }
     public class void ipAddressSYN(String pcap){
         for(String testStr : pcapArray){
-            
+            if (matcher.find()) {
+                IP.add(matcher.group());
+                if (testStr.indexOf("ACK") != -1){
+                    ACK++
+                }
+            }
         }
     }
     public class void passFinder(String pcap){
